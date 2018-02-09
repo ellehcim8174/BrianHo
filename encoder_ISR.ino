@@ -22,12 +22,13 @@ volatile bool encB_prev;
 volatile long enc_counts = 0;
 
 // Mike's stuff
-int desired_location = 0;       // step response input
+int desired_location;       // step response input
 int current_location;           // feedback
-int error;                      // error after subracting negative feedback
+float error;                      // error after subracting negative feedback
 int raw_PWM;                    // signed PWM
 int PWM_mag;                    // just the magnitude
 int step_delay = 50;                 // step doesn't happen at t = 0;
+float error_decimal;
 
 void setup()
 {
@@ -49,12 +50,7 @@ void setup()
 
 void loop()
 { 
-  runMotor();/*
-  Serial.print("Encoder Counts: ");
-  Serial.print(enc_counts);
-  Serial.print("  Revolutions: ");
-  Serial.print(enc_counts/400.0);//400 Counts Per Revolution
-  Serial.print("\n");*/
+  runMotor();
 }
 
 
