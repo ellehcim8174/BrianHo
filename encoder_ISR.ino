@@ -5,8 +5,6 @@
 #include <digitalWriteFast.h>  
 
 // Quadrature encoders
-#define EncInterruptA 0
-#define EncInterruptB 1
 #define encA 2
 #define encB 3
 #define LeftEncoderIsReversed
@@ -15,11 +13,11 @@
 #define dir1    10
 #define dir2    11
 
-volatile bool encA_set;
-volatile bool encB_set;
-volatile bool encA_prev;
-volatile bool encB_prev;
-volatile long enc_counts = 0;
+bool encA_set;
+bool encB_set;
+bool encA_prev;
+bool encB_prev;
+long enc_counts = 0;
 
 // Mike's stuff
 int desired_location;       // step response input
@@ -39,8 +37,8 @@ void setup()
   digitalWrite(encA, LOW);  // turn on pulldown resistors
   pinMode(encB, INPUT);      // sets pin B as input
   digitalWrite(encB, LOW);  // turn on pulldown resistors
-  attachInterrupt(EncInterruptA, ISR_A, CHANGE);
-  attachInterrupt(EncInterruptB, ISR_B, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encA), ISR_A, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encB), ISR_B, CHANGE);
   //Motor Pins Setup
   pinMode(ENABLE, OUTPUT);
   //setPWMFrequency(3, 2);

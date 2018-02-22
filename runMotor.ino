@@ -24,6 +24,8 @@ void runMotor(){
 
     Serial.println(current_location);
 
+ 
+
     analogWrite(ENABLE, raw_PWM);
       
     if (error >= 0) {
