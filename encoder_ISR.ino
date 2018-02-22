@@ -5,6 +5,8 @@
 #include <digitalWriteFast.h>  
 
 // Quadrature encoders
+#define EncInterruptA 0
+#define EncInterruptB 1
 #define encA 2
 #define encB 3
 #define LeftEncoderIsReversed
@@ -13,10 +15,10 @@
 #define dir1    10
 #define dir2    11
 
-bool encA_set;
-bool encB_set;
-bool encA_prev;
-bool encB_prev;
+bool encA_set = 0;
+bool encB_set = 0;
+bool encA_prev = 0;
+bool encB_prev = 0;
 long enc_counts = 0;
 
 // Mike's stuff
@@ -30,7 +32,7 @@ float error_decimal;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(2000000);
 
   // Quadrature encoders
   pinMode(encA, INPUT);      // sets pin A as input
@@ -56,7 +58,7 @@ void loop()
 void ISR_A(){
   encB_set = digitalReadFast(encB);
   encA_set = digitalReadFast(encA);
-  
+
   enc_counts+=ParseEncoder();
   
   encA_prev = encA_set;
@@ -68,7 +70,7 @@ void ISR_B(){
   // Test transition;
   encB_set = digitalReadFast(encB);
   encA_set = digitalReadFast(encA);
-  
+
   enc_counts+=ParseEncoder();
   
   encA_prev = encA_set;

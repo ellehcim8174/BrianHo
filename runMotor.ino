@@ -2,19 +2,12 @@
 void runMotor(){
    
  
-    /*Serial.print("Encoder Counts: ");
-    Serial.print(enc_counts);
-    Serial.print("  Revolutions: ");
-    Serial.print(enc_counts/400.0);//400 Counts Per Revolution
-    Serial.print("\n");*/
-  
     //step_delay = step_delay - 1;  // delays the input step by a second or two
     //if (step_delay == 0)
-      desired_location = 50;
+      desired_location = 100;
  
 
-    current_location = enc_counts;
-    error = desired_location - current_location;
+    error = desired_location - enc_counts;
     
     
     error_decimal = abs(error)/100;
@@ -22,9 +15,7 @@ void runMotor(){
     if (raw_PWM > 255)
       raw_PWM = 255;
 
-    Serial.println(current_location);
-
- 
+    Serial.println(enc_counts);
 
     analogWrite(ENABLE, raw_PWM);
       
