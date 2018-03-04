@@ -15,20 +15,31 @@
 #define dir1    10
 #define dir2    11
 
-bool encA_set = 0;
-bool encB_set = 0;
+volatile bool encA_set = 0;
+volatile bool encB_set = 0;
 bool encA_prev = 0;
 bool encB_prev = 0;
 long enc_counts = 0;
 
 // Mike's stuff
-int desired_location;       // step response input
+int desired_location;           // step response input
 int current_location;           // feedback
-float error;                      // error after subracting negative feedback
-int raw_PWM;                    // signed PWM
+double error;                    // error after subracting negative feedback
+double PID;                      // PID value for input
+long raw_PWM;                    // signed PWM
 int PWM_mag;                    // just the magnitude
-int step_delay = 50;                 // step doesn't happen at t = 0;
-float error_decimal;
+float error_decimal;            // for adjusting gain of input to system
+
+float Kp = 1;              // Proportional gain, 0.4347
+float Ki = 0;               // Integrator gain, 0.621 recommended, 0.0002 makes it go unstable
+float Kd = 0;             // Derivative gain, 0.07151
+
+double integral = 0;             // Integrator term
+double derivative = 0;           // Derivative term 
+double last_error = 0;           // Used for saving last error to calculate derivative
+long last_micros_integral = 0;  // microseconds since last loop of motor.ino integrator calculation
+long last_micros_derivative = 0;// microseconds sine last loop of motor.ino derivative calculation
+int derivative_counter = 0;       // sets a delay so we can get somewhat of a real derivative
 
 void setup()
 {
