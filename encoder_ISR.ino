@@ -22,17 +22,17 @@ bool encB_prev = 0;
 long enc_counts = 0;
 
 // Mike's stuff
-int desired_location;           // step response input
+int desired_location = 100;           // step response input
 int current_location;           // feedback
 double error;                    // error after subracting negative feedback
-double PID;                      // PID value for input
+double PID_value;                      // PID value for input
 long raw_PWM;                    // signed PWM
 int PWM_mag;                    // just the magnitude
 float error_decimal;            // for adjusting gain of input to system
 
-float Kp = 1;              // Proportional gain, 0.4347
-float Ki = 0;               // Integrator gain, 0.621 recommended, 0.0002 makes it go unstable
-float Kd = 0;             // Derivative gain, 0.07151
+float Kp = 0.136;              // Proportional gain, 0.136
+float Ki = 0.0587;               // Integrator gain, 0.0587 recommended, 0.0002 makes it go unstable
+float Kd = 0.071;               // Derivative gain, 0.07151
 
 double integral = 0;             // Integrator term
 double derivative = 0;           // Derivative term 
