@@ -22,7 +22,7 @@ bool encB_prev = 0;
 long enc_counts = 0;
 
 // Mike's stuff
-double desired_location = 0;           // step response input
+double desired_location = 100;           // step response input
 int current_location;           // feedback
 double error;                    // error after subracting negative feedback
 double PID_value;                      // PID value for input

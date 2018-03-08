@@ -1,6 +1,6 @@
 void runMotor(){
   
-    desired_location = 20*sin(40*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    //desired_location = 20*sin(50*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error = desired_location - enc_counts;
 
@@ -28,7 +28,7 @@ void runMotor(){
 
     analogWrite(ENABLE, raw_PWM);
       
-    if (error >= 0) {
+    if (PID_value >= 0) {
       digitalWrite(dir1, HIGH);
       digitalWrite(dir2, LOW);
     }
@@ -37,6 +37,6 @@ void runMotor(){
       digitalWrite(dir2, HIGH);
     }
 
-    //if(millis() > 7000)
-      //Serial.end();           // ends display for easy copying after 7 seconds
+    if(millis() > 7000)
+      Serial.end();           // ends display for easy copying after 7 seconds
 }
