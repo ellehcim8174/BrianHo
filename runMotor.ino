@@ -1,6 +1,6 @@
 void runMotor(){
   
-    //desired_location = 20*sin(50*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    desired_location = 20*sin(40*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error = desired_location - enc_counts;
 
@@ -14,7 +14,7 @@ void runMotor(){
           derivative_counter = 0;
         }
         derivative_counter++;
-        PID_value = (Kp * error) + (Ki * integral) + (Kd * derivative);                       // updating variable "error" using PID values
+        PID_value = (Kp * error) + (Ki * integral) + (Kd * derivative);                    // updating variable "error" using PID values
     // ***** END PID *****
     
     error_decimal = abs(PID_value)/100;
