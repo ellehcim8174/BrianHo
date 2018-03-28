@@ -22,34 +22,38 @@ bool encB_prev = 0;
 long enc_counts = 0;
 
 // Mike's stuff
-int desired_location;           // step response input
-int current_location;           // feedback
-double error;                    // error after subracting negative feedback
-double PID;                      // PID value for input
-long raw_PWM;                    // signed PWM
-int PWM_mag;                    // just the magnitude
-float error_decimal;            // for adjusting gain of input to system
+double desired_location = 80;            // step response input
+int current_location;                     // feedback
+double error;                             // error after subracting negative feedback
+double PID_value;                         // PID value for input
+long raw_PWM;                             // signed PWM
+int PWM_mag;                              // just the magnitude
+float error_decimal;                      // for adjusting gain of input to system
 
-float Kp = 1;              // Proportional gain, 0.4347
-float Ki = 0;               // Integrator gain, 0.621 recommended, 0.0002 makes it go unstable
-float Kd = 0;             // Derivative gain, 0.07151
+float Kp = 0.9;                         // Proportional gain, 0.211 (up to 0.9)
+float Ki = 0.170;                         // Integrator gain, 0.170
+float Kd = 0.058;                         // Derivative gain, 0.058
 
-double integral = 0;             // Integrator term
-double derivative = 0;           // Derivative term 
-double last_error = 0;           // Used for saving last error to calculate derivative
-long last_micros_integral = 0;  // microseconds since last loop of motor.ino integrator calculation
-long last_micros_derivative = 0;// microseconds sine last loop of motor.ino derivative calculation
-int derivative_counter = 0;       // sets a delay so we can get somewhat of a real derivative
+/*float Kp = 1;                             // only P
+float Ki = 0;               
+float Kd = 0;  */
+
+double integral = 0;                      // Integrator term
+double derivative = 0;                    // Derivative term 
+double last_error = 0;                    // Used for saving last error to calculate derivative
+long last_micros_integral = 0;            // microseconds since last loop of motor.ino integrator calculation
+long last_micros_derivative = 0;          // microseconds sine last loop of motor.ino derivative calculation
+int derivative_counter = 0;               // sets a delay so we can get somewhat of a real derivative
 
 void setup()
 {
   Serial.begin(2000000);
 
   // Quadrature encoders
-  pinMode(encA, INPUT);      // sets pin A as input
-  digitalWrite(encA, LOW);  // turn on pulldown resistors
-  pinMode(encB, INPUT);      // sets pin B as input
-  digitalWrite(encB, LOW);  // turn on pulldown resistors
+  pinMode(encA, INPUT);                   // sets pin A as input
+  digitalWrite(encA, LOW);                // turn on pulldown resistors
+  pinMode(encB, INPUT);                   // sets pin B as input
+  digitalWrite(encB, LOW);                // turn on pulldown resistors
   attachInterrupt(digitalPinToInterrupt(encA), ISR_A, CHANGE);
   attachInterrupt(digitalPinToInterrupt(encB), ISR_B, CHANGE);
   //Motor Pins Setup
