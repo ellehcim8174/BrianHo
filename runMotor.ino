@@ -24,7 +24,7 @@ void runMotor(){
 
       //Serial.print(millis());
       //Serial.print("\t");
-      //Serial.println(enc_counts);
+      Serial.println(enc_counts);
 
     analogWrite(ENABLE, raw_PWM);
       
@@ -37,6 +37,57 @@ void runMotor(){
       digitalWrite(dir2, HIGH);
     }
 
-    if(millis() > 7000)
-      Serial.end();           // ends display for easy copying after 7 seconds
+
+
+
+
+
+
+
+
+
+
+
+    // SMALL MOTOR
+
+
+    //desired_location_2 = 20*sin(40*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+        
+        error_2 = desired_location_2 - enc_counts_2;
+    
+        // *****   PID   *****
+            integral_2 += error_2*((micros()-last_micros_integral_2)*0.000001);                      // accumulate ongoing error
+              last_micros_integral_2 = micros();
+            if (derivative_counter_2 == 60){             
+              derivative_2 = (error_2 - last_error_2)/(((micros()-last_micros_derivative_2)*0.000001));    // difference in current error minus the last error
+              last_micros_derivative_2 = micros();
+              last_error_2 = error_2;                                                                // update last error to current error
+              derivative_counter_2 = 0;
+            }
+            derivative_counter_2++;
+            PID_value_2 = (Kp_2 * error_2) + (Ki_2 * integral_2) + (Kd_2 * derivative_2);                    // updating variable "error" using PID values
+        // ***** END PID *****
+        
+        error_decimal_2 = abs(PID_value_2)/100;
+        raw_PWM_2 =  error_decimal_2*226+29;                                                          // PWM is scaled by the error, maxing out at 100 slots
+        if (raw_PWM_2 > 255)
+          raw_PWM_2 = 255;
+    
+          //Serial.print(millis());
+          //Serial.print("\t");
+          //Serial.println(enc_counts_2);
+    
+        analogWrite(ENABLE_2, raw_PWM_2);
+          
+        if (PID_value_2 >= 0) {
+          digitalWrite(dir1_2, HIGH);
+          digitalWrite(dir2_2, LOW);
+        }
+        else {
+          digitalWrite(dir1_2, LOW);
+          digitalWrite(dir2_2, HIGH);
+        }
+    
+        //if(millis() > 7000)
+          //Serial.end();           // ends display for easy copying after 7 seconds
 }
