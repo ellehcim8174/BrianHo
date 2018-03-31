@@ -13,9 +13,9 @@
 #define encB 3    //interrupt pin
 #define LeftEncoderIsReversed
 //Driver Pins
-#define ENABLE  8
-#define dir1    9
-#define dir2    10
+#define ENABLE  9
+#define dir1    10
+#define dir2    11
 
 //Small Motor
 #define EncInterruptA_2 4
@@ -24,9 +24,9 @@
 #define encB_2 21    //interrupt pin
 #define LeftEncoderIsReversed_2
 //Driver Pins
-#define ENABLE_2  11
-#define dir1_2    12
-#define dir2_2    13
+#define ENABLE_2  12
+#define dir1_2    13
+#define dir2_2    14
 
 volatile bool encA_set = 0;
 volatile bool encB_set = 0;
@@ -43,21 +43,21 @@ long enc_counts_2 = 0;
 // Mike's stuff
 
 // BIG MOTOR
-double desired_location = 80;            // step response input
+double desired_location = 0;            // step response input
 int current_location;                     // feedback
 double error;                             // error after subracting negative feedback
 double PID_value;                         // PID value for input
-long raw_PWM;                             // signed PWM
+int raw_PWM;                             // signed PWM
 int PWM_mag;                              // just the magnitude
 float error_decimal;                      // for adjusting gain of input to system
 
-/*float Kp = 0.211;                         // Proportional gain, 0.211 (up to 0.9)
-float Ki = 0.170;                         // Integrator gain, 0.170
-float Kd = 0.058;                         // Derivative gain, 0.058*/
+float Kp = 2.058;                         // Proportional gain, 0.211 (up to 0.9)
+float Ki = 9.354;                         // Integrator gain, 0.170
+float Kd = 0.111;                         // Derivative gain, 0.058*/
 
-float Kp = 1;                             // only P
+/*float Kp = 1;                             // only P
 float Ki = 0;               
-float Kd = 0;
+float Kd = 0;*/
 
 double integral = 0;                      // Integrator term
 double derivative = 0;                    // Derivative term 
