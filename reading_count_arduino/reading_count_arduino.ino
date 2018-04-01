@@ -52,9 +52,9 @@ float   Kp_HO = 2.058;                     // Proportional gain, 0.211 (up to 0.
 float   Ki_HO = 9.354;                     // Integrator gain, 0.170
 float   Kd_HO = 0.111;                     // Derivative gain, 0.058
 
-float   Kp_BR = 0.211;                       // Proportional gain, 0.211 (up to 0.9)
-float   Ki_BR = 0.170;                     // Integrator gain, 0.170
-float   Kd_BR = 0.058;                     // Derivative gain, 0.058
+float   Kp_BR = 0.864;                       // Proportional gain, 0.864
+float   Ki_BR = 0.512;                     // Integrator gain, 0.512
+float   Kd_BR = 0.316;                     // Derivative gain, 0.316
 
 /*float   Kp_HO = 1;                     // ONLY FEEDBACK
 float   Ki_HO = 0;                     

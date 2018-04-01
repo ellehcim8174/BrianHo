@@ -2,7 +2,7 @@ void runMotor(){
 
     //**********************HO HO HO*******************
   
-    //desired_location_HO = 20*sin(40*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    desired_location_HO = 12*sin(10*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error_HO = desired_location_HO - count_HO;
 
@@ -56,7 +56,7 @@ void runMotor(){
 
     //**********************BRIAN*******************
 
-    //desired_location_BR = 20*cos(40*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    desired_location_BR = 12*cos(10*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error_BR = desired_location_BR - count_BR;
 
@@ -74,7 +74,7 @@ void runMotor(){
     // ***** END PID *****
     
     error_decimal_BR = abs(PID_value_BR)/100;
-    raw_PWM_BR =  error_decimal_BR*225+30;                                                          // PWM is scaled by the error, maxing out at 100 slots
+    raw_PWM_BR =  error_decimal_BR*175+80;                                                          // PWM is scaled by the error, maxing out at 100 slots
     if (raw_PWM_BR  > 255)
       raw_PWM_BR = 255;
       
