@@ -51,13 +51,13 @@ long    raw_PWM_BR;                        // signed PWM
 float   error_decimal_HO;                  // for adjusting gain of input to system
 float   error_decimal_BR;                  // for adjusting gain of input to system
 
-float   Kp_HO = 2.058;                     // Proportional gain, 0.211 (up to 0.9)
-float   Ki_HO = 9.354;                     // Integrator gain, 0.170
-float   Kd_HO = 0.111;                     // Derivative gain, 0.058
+float   Kp_HO = 2.058;                     // Proportional gain, 2.058
+float   Ki_HO = 9.354;                     // Integrator gain, 9.354
+float   Kd_HO = 0.111;                     // Derivative gain, 0.111
 
-float   Kp_BR = 0.864;                       // Proportional gain, 0.864
-float   Ki_BR = 0.512;                     // Integrator gain, 0.512
-float   Kd_BR = 0.316;                     // Derivative gain, 0.316
+float   Kp_BR = 1.49;                      // Proportional gain, 1.13
+float   Ki_BR = 2.62;                     // Integrator gain, 0.791
+float   Kd_BR = 0.4;                     // Derivative gain, 0.358
 
 /*float   Kp_HO = 1;                     // ONLY FEEDBACK
 float   Ki_HO = 0;                     
@@ -65,7 +65,7 @@ float   Kd_HO = 0;
 
 float   Kp_BR = 1;                       
 float   Ki_BR = 0;                     
-float   Kd_BR = 0;                          */
+float   Kd_BR = 0;     */                     
 
 
 double  integral_HO = 0;                      // Integrator term
@@ -153,9 +153,9 @@ void loop() {
   count_BR = double(count_BR);
   count_HO = (result_high_HO<<8) | result_low_HO;   //concatenating upper byte and lower byte to 16 bits - HO
   count_HO = double(count_HO);
-  Serial.print(count_BR);
-  Serial.print("\t");
-  Serial.println(count_HO);
+  //Serial.print(count_BR);
+  //Serial.print("\t");
+  //Serial.println(count_HO);
 }
 
 //function for getting 2nd LSB
