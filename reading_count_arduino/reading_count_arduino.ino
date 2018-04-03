@@ -9,16 +9,19 @@
 #define dir1_HO      3
 #define dir2_HO      4
 
+
 //Brian encoder select/OE pins
 double  count_BR = 0;
 int     SEL1_BR = 11;
 //int   SEL2_BR = 12;    //SEL2 always low to read 3rd byte and LSB, keep pin GND
 int     OE_BR = 13;
+int     RST_BR = 12;
 //Ho encoder select/OE pins
 double  count_HO = 0;
 int     SEL1_HO = 8;
 //int   SEL2_HO = 9;
 int     OE_HO = 10;
+int     RST_HO = 9;
 
 //bit reading variables
 byte    result_high_BR;
@@ -84,39 +87,44 @@ void setup() {
   Serial.begin(9600);
   //pin declaration for Brian Motor
   pinMode(30, INPUT);
-  pinMode(31, INPUT); 
-  pinMode(32, INPUT);
-  pinMode(33, INPUT); 
+  pinMode(32, INPUT); 
   pinMode(34, INPUT);
-  pinMode(35, INPUT); 
-  pinMode(36, INPUT);
-  pinMode(37, INPUT);
+  pinMode(36, INPUT); 
+  pinMode(38, INPUT);
+  pinMode(40, INPUT); 
+  pinMode(42, INPUT);
+  pinMode(44, INPUT);
   pinMode(SEL1_BR, OUTPUT);
   //pinMode(SEL2, OUTPUT);
   pinMode(OE_BR, OUTPUT);
   pinMode(ENABLE_BR, OUTPUT);
   pinMode(dir1_BR, OUTPUT);
   pinMode(dir2_BR, OUTPUT);
+  digitalWrite(RST_BR, LOW);
 
   //pin declaration for Ho Motor
-  pinMode(40, INPUT);
+  pinMode(31, INPUT);
+  pinMode(33, INPUT); 
+  pinMode(35, INPUT);
+  pinMode(37, INPUT); 
+  pinMode(39, INPUT);
   pinMode(41, INPUT); 
-  pinMode(42, INPUT);
-  pinMode(43, INPUT); 
-  pinMode(44, INPUT);
-  pinMode(45, INPUT); 
-  pinMode(46, INPUT);
-  pinMode(47, INPUT);
+  pinMode(43, INPUT);
+  pinMode(45, INPUT);
   pinMode(SEL1_HO, OUTPUT);
   //pinMode(SEL2_HO, OUTPUT);
   pinMode(OE_HO, OUTPUT);
   pinMode(ENABLE_HO, OUTPUT);
   pinMode(dir1_HO, OUTPUT);
   pinMode(dir2_HO, OUTPUT);
+  digitalWrite(RST_HO, LOW);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  // software reset
+  digitalWrite(RST_BR, HIGH);
+  digitalWrite(RST_HO, HIGH);
   //Input to decoder chip to select upper byte 
   digitalWrite(OE_BR, LOW);
   digitalWrite(SEL1_BR, LOW);
@@ -145,9 +153,9 @@ void loop() {
   count_BR = double(count_BR);
   count_HO = (result_high_HO<<8) | result_low_HO;   //concatenating upper byte and lower byte to 16 bits - HO
   count_HO = double(count_HO);
-  //Serial.print(count_BR);
-  //Serial.print("\t");
-  //Serial.println(count_HO);
+  Serial.print(count_BR);
+  Serial.print("\t");
+  Serial.println(count_HO);
 }
 
 //function for getting 2nd LSB
@@ -200,24 +208,24 @@ void get_low_HO () {
 //function for converting 8-bits to a byte
 byte get_byte_BR (){
   bitWrite(byte_data_BR, 0, digitalRead(30));
-  bitWrite(byte_data_BR, 1, digitalRead(31));
-  bitWrite(byte_data_BR, 2, digitalRead(32));
-  bitWrite(byte_data_BR, 3, digitalRead(33));
-  bitWrite(byte_data_BR, 4, digitalRead(34));
-  bitWrite(byte_data_BR, 5, digitalRead(35));
-  bitWrite(byte_data_BR, 6, digitalRead(36));
-  bitWrite(byte_data_BR, 7, digitalRead(37));   
+  bitWrite(byte_data_BR, 1, digitalRead(32));
+  bitWrite(byte_data_BR, 2, digitalRead(34));
+  bitWrite(byte_data_BR, 3, digitalRead(36));
+  bitWrite(byte_data_BR, 4, digitalRead(38));
+  bitWrite(byte_data_BR, 5, digitalRead(40));
+  bitWrite(byte_data_BR, 6, digitalRead(42));
+  bitWrite(byte_data_BR, 7, digitalRead(44));   
   return byte_data_BR;     
 }
 byte get_byte_HO (){
-  bitWrite(byte_data_HO, 0, digitalRead(40));
-  bitWrite(byte_data_HO, 1, digitalRead(41));
-  bitWrite(byte_data_HO, 2, digitalRead(42));
-  bitWrite(byte_data_HO, 3, digitalRead(43));
-  bitWrite(byte_data_HO, 4, digitalRead(44));
-  bitWrite(byte_data_HO, 5, digitalRead(45));
-  bitWrite(byte_data_HO, 6, digitalRead(46));
-  bitWrite(byte_data_HO, 7, digitalRead(47));   
+  bitWrite(byte_data_HO, 0, digitalRead(31));
+  bitWrite(byte_data_HO, 1, digitalRead(33));
+  bitWrite(byte_data_HO, 2, digitalRead(35));
+  bitWrite(byte_data_HO, 3, digitalRead(37));
+  bitWrite(byte_data_HO, 4, digitalRead(39));
+  bitWrite(byte_data_HO, 5, digitalRead(41));
+  bitWrite(byte_data_HO, 6, digitalRead(43));
+  bitWrite(byte_data_HO, 7, digitalRead(45));   
   return byte_data_HO;     
 }
 
