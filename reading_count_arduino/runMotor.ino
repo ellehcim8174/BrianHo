@@ -2,14 +2,14 @@ void runMotor(){
 
     //**********************HO HO HO*******************
   
-    desired_location_HO = 20*sin(10*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    desired_location_HO = 20*sin(20*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error_HO = desired_location_HO - count_HO;
 
     // *****   PID   *****
         integral_HO += error_HO*((micros()-last_micros_integral_HO)*0.000001);                      // accumulate ongoing error
           last_micros_integral_HO = micros();
-        if (derivative_counter_HO == 20){             
+        if (derivative_counter_HO == 10){             
           derivative_HO = (error_HO - last_error_HO)/(((micros()-last_micros_derivative_HO)*0.000001));    // difference in current error minus the last error
           last_micros_derivative_HO = micros();
           last_error_HO = error_HO;                                                                // update last error to current error
@@ -56,7 +56,7 @@ void runMotor(){
 
     //**********************BRIAN*******************
 
-    desired_location_BR = 20*cos(10*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    desired_location_BR = 20*sin(20*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error_BR = desired_location_BR - count_BR;
 

@@ -100,7 +100,10 @@ void setup() {
   pinMode(ENABLE_BR, OUTPUT);
   pinMode(dir1_BR, OUTPUT);
   pinMode(dir2_BR, OUTPUT);
+  pinMode(RST_BR, OUTPUT);
   digitalWrite(RST_BR, LOW);
+  //digitalWrite(RST_HO, LOW);
+  
 
   //pin declaration for Ho Motor
   pinMode(31, INPUT);
@@ -117,6 +120,7 @@ void setup() {
   pinMode(ENABLE_HO, OUTPUT);
   pinMode(dir1_HO, OUTPUT);
   pinMode(dir2_HO, OUTPUT);
+  pinMode(RST_HO, OUTPUT);
   digitalWrite(RST_HO, LOW);
 }
 
