@@ -2,7 +2,7 @@ void runMotor(){
 
     //**********************HO HO HO*******************
   
-    desired_location_HO = 20*sin(20*millis()/1000.0);                                        // sine wave input -- just set whole thing to 80 for a step!
+    desired_location_HO = 20*sin(20*millis()/1000.0+10);                                        // sine wave input -- just set whole thing to 80 for a step!
     
     error_HO = desired_location_HO - count_HO;
 
